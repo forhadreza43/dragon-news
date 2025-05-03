@@ -16,13 +16,13 @@ const Root = () => {
         <Navbar />
       </header>
       <main className="mx-auto grid w-11/12 grid-cols-12 gap-5 mt-18">
-        <aside className="left-aside col-span-3">
+        <aside className="left-aside col-span-3 sticky top-0 h-fit">
           <LeftAside/>
         </aside>
         <section className="main col-span-6">
           <Outlet />
         </section>
-        <aside className="right-aside col-span-3">
+        <aside className="right-aside col-span-3 sticky top-0 h-fit">
           <RightAside/>
         </aside>
       </main>
