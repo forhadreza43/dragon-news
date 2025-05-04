@@ -3,9 +3,10 @@ import React from "react";
 import { FaEye, FaStar } from "react-icons/fa";
 import { cn } from "../../lib/utils";
 import { Bookmark, Share, Star } from "lucide-react";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
-  const { title, author, image_url, details, total_view, rating } = news;
+  const {id, title, author, image_url, details, total_view, rating } = news;
   //   const formattedDate = formatDate(new Date(news.author.published_date));
 
   // Generate stars for rating
@@ -73,10 +74,9 @@ const NewsCard = ({ news }) => {
       {/* Details */}
       <div className="px-4 py-3 text-sm text-gray-700">
         {details.slice(0, 180)}...
-        <span className="cursor-pointer font-semibold text-orange-500">
-          {" "}
+        <Link to={`/news-details/${id}`} className="cursor-pointer font-semibold text-orange-500">
           Read More
-        </span>
+        </Link>
       </div>
 
       {/* Footer */}
