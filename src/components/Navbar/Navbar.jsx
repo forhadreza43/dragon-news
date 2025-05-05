@@ -12,7 +12,7 @@ const Navbar = () => {
       <NavLink to="/career">Career</NavLink>
     </>
   );
-  // console.log(user);
+  console.log(user);
 
   const handleLogOut = () => {
     logOut()
@@ -27,12 +27,16 @@ const Navbar = () => {
   };
   return (
     <div className="grid grid-cols-3">
-      <div>{user && user?.email}</div>
+      <div>{user && user?.displayName}</div>
       <div className="space-x-3 place-self-center-safe text-accent">
         {links}
       </div>
       <div className="flex items-center gap-3 place-self-end-safe">
-        <img src={userImage} alt="" />
+        <img
+          className="w-11 rounded-full"
+          src={`${user && user?.photoURL ? user?.photoURL : userImage}`}
+          alt=""
+        />
         {user ? (
           <button
             onClick={handleLogOut}

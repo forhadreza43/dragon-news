@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 
 const Register = () => {
-  const { createUser, setUser } = useContext(AuthContext);
+  const { createUser, setUser, updateUserProfile } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -12,6 +12,8 @@ const Register = () => {
     setError(null);
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const displayName = e.target.fullName.value;
+    const photoURL = e.target.photo.value;
     // console.log(email, password);
     if (!email || !password) {
       setError("Email and Password Should Not be empty");
@@ -20,8 +22,20 @@ const Register = () => {
 
     createUser(email, password)
       .then((userCredential) => {
-        setUser(userCredential.user)
-        navigate("/auth/login");
+        updateUserProfile({
+          displayName,
+          photoURL
+        }).then(()=>{
+          setUser({
+            ...userCredential.user,
+            displayName: displayName,
+            photoURL: photoURL
+          });
+          navigate("/");
+        })
+        .catch((err)=>{
+          setError(err.message);
+        })
       })
       .catch((err) => {
         setError(err.message);
@@ -37,7 +51,7 @@ const Register = () => {
           <label className="label">Name</label>
           <input
             type="text"
-            name="name"
+            name="fullName"
             className="input"
             placeholder="Your Name"
           />
